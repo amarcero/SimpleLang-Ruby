@@ -11,9 +11,16 @@
 <%
   if @result
     @result.each_with_index do |eval, i|
--%>
-      <%= "Result, Line #{i+1}: #{eval}" -%><br />
-<%
+      concat "Result, Line #{i+1}: #{eval}"
+      concat "<br />".html_safe
     end
   end
+
+  if @errors
+    concat "<h3 style='color:red;'>Input Error (".html_safe
+    concat @errors[:type]
+    concat ")</h3>".html_safe
+    concat @errors[:msg]
+  end
 -%>
+
