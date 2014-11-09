@@ -8,6 +8,7 @@ class WelcomeController < ApplicationController
   # post: the data has been evaluated
   def index
     @result = Array.new
+    @input = ""
     if params[:data] != ""
       # get the input from Rails and parse it
       @ASTs=Parser.new(params[:data]).parse
@@ -15,13 +16,15 @@ class WelcomeController < ApplicationController
         value = tree.evaluate
         @result.push(value)
       end unless @@errors
+
+      # return the input to the UI
+      @input = params[:data].strip
     else
       crash "INPUT", "no input specified"
     end if request.post?
 
     # class variables are not accessible by the view
     @errors = @@errors
-    @lineCount = @@lineCount
   end
 
 

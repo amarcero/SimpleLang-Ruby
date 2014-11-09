@@ -1,9 +1,13 @@
 <form action="/" method="POST">
-  <textarea name="data" cols="50" rows="10">
-    i = 1;
-    i = i + (2 * (5 - 1));
-    i;
-  </textarea>
+<textarea name="data" cols="50" rows="10">
+<% if @input != '' -%>
+<%= @input -%>
+<% else -%>
+i = 1;
+i = i + (2 * (5 - 1));
+i;
+<% end -%>
+</textarea>
   <br />
   <input type="submit" />
 </form>
