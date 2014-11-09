@@ -1,7 +1,7 @@
  # Alan Marcero
 
  class ApplicationController < ActionController::Base
-  protect_from_forgery with: :exception
+
   # variables that will be accessible to all classes
   # that inherit ApplicationController
   def initialize

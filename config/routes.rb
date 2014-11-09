@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'welcome/index'
+  match "/" => "welcome#index", via: [:get, :post]
   root 'welcome#index'
 
 
