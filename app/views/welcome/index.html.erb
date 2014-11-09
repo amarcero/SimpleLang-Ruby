@@ -1,9 +1,19 @@
 <form action="/" method="POST">
   <textarea name="data" cols="50" rows="10">
-    i = 0;
-    i = i + 1;
+    i = 1;
+    i = i + (2 * (5 - 1));
     i;
   </textarea>
   <br />
   <input type="submit" />
 </form>
+
+<%
+  if @result
+    @result.each_with_index do |eval, i|
+-%>
+      <%= "Result, Line #{i+1}: #{eval}" -%><br />
+<%
+    end
+  end
+-%>

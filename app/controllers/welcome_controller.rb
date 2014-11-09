@@ -7,13 +7,13 @@ class WelcomeController < ApplicationController
   # pre:  the data has been passed through "data"
   # post: the data has been evaluated
   def index
-    @data = Array.new
+    @result = Array.new
     if params[:data] != ""
       # get the input from Rails and parse it
       @ASTs=Parser.new(params[:data]).parse
       for tree in @ASTs
         value = tree.evaluate
-        @data.push(value)
+        @result.push(value)
       end unless @@errors
     else
       crash "INPUT", "no input specified"
