@@ -2,7 +2,7 @@
 
 ############## M A I N ##############
 
-class WelcomeController < ApplicationController
+class SimplelangController < ApplicationController
 
   # pre:  the data has been passed through "data"
   # post: the data has been evaluated

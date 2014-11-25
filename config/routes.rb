@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  match "/" => "welcome#index", via: [:get, :post]
-  root 'welcome#index'
+  match "/" => "simplelang#index", via: [:get, :post]
+  root 'simplelang#index'
 
 
   # The priority is based upon order of creation: first created -> highest priority.
