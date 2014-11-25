@@ -199,6 +199,11 @@ class Lexer < ApplicationController
       @file.getch
       build_token :DIVIDE, " "
 
+    # modulus %
+    when @file.check(/\%/)
+      @file.getch
+      build_token :MODULUS, " "
+
 
     # left paren (
     when @file.check(/\(/)
@@ -252,7 +257,7 @@ class Lexer < ApplicationController
   # creates a new Token
   # pre:  the input type is a symbol and data is a string
   # post: the newly constructed Token has been returned
-  def build_token( type, data)
+  def build_token(type, data)
     Token.new( type, data, @@lineCount )
   end
 
@@ -482,6 +487,7 @@ class Parser < ApplicationController
   # pre:  @currTok must be the current token
   #     a multiply token must be type :MULT
   #     a divide token must be type :DIVIDE
+  #     a modulus token must be type :MODULUS
   # post: returns an anonymous function to multiply
   #       or divide two values
   def multop
@@ -489,6 +495,8 @@ class Parser < ApplicationController
       lambda { |a,b| a.evaluate * b.evaluate }
     elsif @currTok.type == :DIVIDE
       lambda { |a,b| a.evaluate / b.evaluate }
+    elsif @currTok.type == :MODULUS
+      lambda { |a,b| a.evaluate % b.evaluate }
     end
   end
 
