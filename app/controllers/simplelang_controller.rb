@@ -169,30 +169,25 @@ class Lexer < ApplicationController
       end
       nextToken
 
-
     # IDs
     when @file.check(/[a-zA-Z]/)
       region = @file.scan(/\w+/) # scan all word chars
       build_token :ID, region
-
 
     # plus +
     when @file.check(/\+/)
       @file.getch
       build_token :PLUS, " "
 
-
     # subtract -
     when @file.check(/\-/)
       @file.getch
       build_token :MINUS, " "
 
-
     # multiply *
     when @file.check(/\*/)
       @file.getch
       build_token :MULT, " "
-
 
     # divide /
     when @file.check(/\//)
@@ -204,18 +199,20 @@ class Lexer < ApplicationController
       @file.getch
       build_token :MODULUS, " "
 
+    # power ^
+    when @file.check(/\^/)
+      @file.getch
+      build_token :POWER, " "
 
     # left paren (
     when @file.check(/\(/)
       @file.getch
       build_token :LPAREN, " "
 
-
     # right paren )
     when @file.check(/\)/)
       @file.getch
       build_token :RPAREN, " "
-
 
     # assignment =
     when @file.check(/\=/)
@@ -497,6 +494,8 @@ class Parser < ApplicationController
       lambda { |a,b| a.evaluate / b.evaluate }
     elsif @currTok.type == :MODULUS
       lambda { |a,b| a.evaluate % b.evaluate }
+    elsif @currTok.type == :POWER
+      lambda { |a,b| a.evaluate ** b.evaluate }
     end
   end
 
