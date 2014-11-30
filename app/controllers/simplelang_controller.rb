@@ -48,7 +48,7 @@ class Token < ApplicationController
   #     the input data is the token data
   #     line is the line the token occurs on
   # post: a new token has been constructed
-  def initialize( type, data, line )
+  def initialize(type, data, line)
     @type = type
     @data = data
     @line = line
@@ -99,7 +99,7 @@ class Lexer < ApplicationController
     # integer literals and float literals
     when @file.check(/\d/)
       # scan until the digits end
-      region = @file.scan( /\d+/ )
+      region = @file.scan(/\d+/)
 
       # if the very next char is alpha, crash
       if @file.check(/[a-zA-Z]/)
@@ -108,7 +108,7 @@ class Lexer < ApplicationController
       # if the very next char is a .
       elsif @file.check(/\./)
         region << @file.getch # append the .
-        decimal = @file.scan( /\d+/ )
+        decimal = @file.scan(/\d+/)
         # if there was at least 1 decimal after the "."
         # & no word chars directly after the digits
         if decimal && !@file.check(/\w+/)
@@ -134,7 +134,7 @@ class Lexer < ApplicationController
       region = @file.getch
 
     # attempt to find the closing " or an end line
-    scan = @file.scan_until( /$|\"/)
+    scan = @file.scan_until(/$|\"/)
 
     # if the scan found a "
     if scan.last(1) == '"'
@@ -158,7 +158,7 @@ class Lexer < ApplicationController
 
           # scan for */ or end of line or EOF
         else
-          region = @file.scan_until( /\*\/|\r\n|\z/ )
+          region = @file.scan_until(/\*\/|\r\n|\z/)
           if region.last(2) == "*/"
             # we found the end of the comment
             keep_looking = false
@@ -255,7 +255,7 @@ class Lexer < ApplicationController
   # pre:  the input type is a symbol and data is a string
   # post: the newly constructed Token has been returned
   def build_token(type, data)
-    Token.new( type, data, @@lineCount )
+    Token.new(type, data, @@lineCount)
   end
 
   # calls crash with the input msg and the TOKEN error type
@@ -286,7 +286,7 @@ class BinaryExpr < ApplicationController
 
   # when new is called on the class, this is called
   # it has the same pre/post conditions as the class
-  def initialize( left, right, op )
+  def initialize(left, right, op)
     @left = left
     @right = right
     @op = op
